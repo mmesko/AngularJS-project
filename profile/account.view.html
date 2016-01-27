@@ -1,0 +1,101 @@
+  <nav class="navbar navbar-default">
+  <div class="container-fluid">
+   
+    
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#"><img alt="Brand" src="images/casino49.png" height="30px">
+      </a>
+    </div>
+        
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+        <li><a href="#">Home</a></li>
+      </ul>
+        
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Go!</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a class="dropdown" data-toggle="dropdown">Hi {{vm.user.firstName}}!<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#/login">Logout</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#/profile">Profile</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+  <br/> 
+   
+   <h3><b>Profile info</b></h3>
+   <hr>
+   
+      
+      
+         <output id="list" style="width: 50px;"></output>
+      
+         <br/><br/>
+      
+        
+        <div class="container">
+            <div><input type="file" id="files" name="files[]" multiple/></div>
+        </div>
+   <br/>
+
+
+
+    <!-- User table -->
+    <div class="col-sm-6">
+        <h5><strong>BASIC INFO</strong></h5>
+        <br />
+        <table class="table">
+               <tr>
+                <td>FIRST NAME</td>
+                <td>{{vm.user.firstName}}</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>LAST NAME</td>
+                <td>{{vm.user.lastName}}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>USERNAME</td>
+                <td>{{vm.user.username}}</td>
+                <td></td>
+            </tr>
+            
+        </table>
+        
+  <h5><b>ADDITIONAL INFO</b></h5>
+   <hr>
+        
+   <button type="button"  class="btn btn-primary" ng-click="vm.addList()">Add Info</button>
+    <button type="button" class="btn btn-primary" ng-click="vm.saveLists()">Save Info</button>
+    <button type="button"  class="btn btn-primary" ng-click="vm.loadLists()">Load Info</button>
+    
+    <br/>
+    <div>
+      <div class="number-list" ng-repeat="list in vm.lists track by $index">
+        <span ng-repeat="value in list.values track by $index"><table class="table"><tr><td>{{value}}<td></tr></table><br></span><br>
+        <form role="" ng-submit="list.addValue(valueTyped);valueTyped = ''">
+          <input type="text" size="10" ng-model="valueTyped">
+          <button type="button"  class="btn btn-primary" ng-click="vm.addValue(list, valueTyped);valueTyped = ''">Add</button>
+          
+        </form>
+      </div>
+    </div>
+    <hr>
+    </div>
+    
+ 
+   
+
+
+
