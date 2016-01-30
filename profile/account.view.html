@@ -1,7 +1,9 @@
+ <div class="container" ng-controller="AccountController">   
+ <!-- navbar-->    
   <nav class="navbar navbar-default">
   <div class="container-fluid">
    
-    
+   <!-- navbar-header-->
     <div class="navbar-header">
       <a class="navbar-brand" href="#"><img alt="Brand" src="images/casino49.png" height="30px">
       </a>
@@ -20,7 +22,7 @@
       </form>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-          <a class="dropdown" data-toggle="dropdown">Hi {{vm.user.firstName}}!<span class="caret"></span></a>
+          <a class="dropdown" data-toggle="dropdown">Hi {{vm.user.userData.firstName}}!<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#/login">Logout</a></li>
             <li role="separator" class="divider"></li>
@@ -34,21 +36,22 @@
   <br/> 
    
    <h3><b>Profile info</b></h3>
-   <hr>
+   <hr> 
    
-      
-      
+      <form class = "pull-right" style="width: 500px;"  position = "absolute">
+        <div class="form-group">
+            <tags-input ng-model="vm.user.userData.tags" style="width: 700px;" max-tags="5"></tags-input>
+        </div>
+             <button type="button" class="btn btn-primary pull-right" ng-click="vm.saveTags(vm.user)">Save Tags</button>
+      </form>
+    
+    <!-- User profile picture -->
          <output id="list" style="width: 50px;"></output>
-      
          <br/><br/>
-      
-        
         <div class="container">
             <div><input type="file" id="files" name="files[]" multiple/></div>
         </div>
    <br/>
-
-
 
     <!-- User table -->
     <div class="col-sm-6">
@@ -57,42 +60,60 @@
         <table class="table">
                <tr>
                 <td>FIRST NAME</td>
-                <td>{{vm.user.firstName}}</td>
+                <td>{{::vm.user.userData.firstName}}</td>
                 <td></td>
             </tr>
-                    <tr>
+                <tr>
                 <td>LAST NAME</td>
-                <td>{{vm.user.lastName}}</td>
+                <td>{{::vm.user.userData.lastName}}</td>
                 <td></td>
             </tr>
             <tr>
                 <td>USERNAME</td>
-                <td>{{vm.user.username}}</td>
+                <td>{{vm.user.userData.username}}</td>
                 <td></td>
             </tr>
-            
         </table>
-        
+
+   <!-- User additional info -->   
   <h5><b>ADDITIONAL INFO</b></h5>
-   <hr>
-        
-   <button type="button"  class="btn btn-primary" ng-click="vm.addList()">Add Info</button>
-    <button type="button" class="btn btn-primary" ng-click="vm.saveLists()">Save Info</button>
-    <button type="button"  class="btn btn-primary" ng-click="vm.loadLists()">Load Info</button>
-    
-    <br/>
-    <div>
-      <div class="number-list" ng-repeat="list in vm.lists track by $index">
-        <span ng-repeat="value in list.values track by $index"><table class="table"><tr><td>{{value}}<td></tr></table><br></span><br>
-        <form role="" ng-submit="list.addValue(valueTyped);valueTyped = ''">
-          <input type="text" size="10" ng-model="valueTyped">
-          <button type="button"  class="btn btn-primary" ng-click="vm.addValue(list, valueTyped);valueTyped = ''">Add</button>
-          
+        <table class="table">
+               <tr>
+                <td>EDUCATION</td>
+                <td>{{vm.user.userData.education}}</td>
+            </tr>
+             <tr>
+                <td>WORKING PLACE</td>
+                <td>{{vm.user.userData.workplace}}</td>
+            </tr>
+            <tr> <td><button class="btn btn-sm btn-success" ng-click="vm.changeInfo()">Change info</button></td></tr>
+        </table>
+    </div>
+  
+   <!-- Change additionalinfo-->
+    <div class="col-sm-5 col-sm-offset-1" ng-show="vm.showInfoChangeTab">
+        <h5 class="h5"><b>CHANGE ADDITIONAL INFO</b></h5>
+        <br />
+        <form class="form-group">
+            <div class="form-inline">
+                <label class="col-sm-4">Education</label>
+                <input type="text" class="form-control" ng-model="vm.user.userData.education" />
+            </div>
+            <br />
+            <div class="form-inline">
+                <label class="col-sm-4">Working place</label>
+                <input type="text" class="form-control" ng-model="vm.user.userData.workplace"/>
+            </div>
+            <br />
+            <div class="form-inline">
+                <button class="btn btn-sm btn-primary" ng-click="vm.confirmAdditionalInfoEdit(vm.user)">Save changes</button>
+                <button class="btn btn-sm btn-primary" ng-click="vm.closeTab()">Close tab</button>
+            </div>
         </form>
-      </div>
     </div>
-    <hr>
-    </div>
+  </div> 
+ 
+
     
  
    

@@ -41,13 +41,13 @@
 
         }
 
-        function SetCredentials(username, password) {
+        function SetCredentials(username, password, id, education, working) {
             var authdata = Base64.encode(username + ':' + password);
-
+           
             $rootScope.globals = {
-                currentUser: {
+                currentUser: {                   
                     username: username,
-                    authdata: authdata
+                    authdata: authdata,                    
                 }
             };
 
@@ -61,6 +61,9 @@
             $http.defaults.headers.common.Authorization = 'Basic';
         }
     }
+
+   
+      
 
     // Base64 encoding service used by AuthenticationService
     var Base64 = {

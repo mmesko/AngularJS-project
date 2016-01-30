@@ -31,16 +31,6 @@
 <h3><b>Registered users list</b></h3>
 <hr>
  
-        
-     <form style="width: 300px;"  >
-        <div class="form-group">
-            <tags-input ng-model="tags" style="width: 500px;" max-tags="5"></tags-input>
-            
-        </div>
-             <button type="button" class="btn btn-primary" ng-click="vm.saveTags()">Save Tags</button>
-              <button type="button"  class="btn btn-primary" ng-click="vm.loadTags()">Load Tags</button>
-      </form>
-  <br/>
    <div class="btn-group">
         <button class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Export Table Data</button>
         <ul class="dropdown-menu " role="menu">
@@ -49,33 +39,27 @@
     </div>
 <br/><br/>
 
-
-  
-    <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped table-bordered table-condensed table-hover" id="tasks" >
-	   
+    <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped table-bordered table-condensed table-hover" id="tasks" >	   
        <thead>
             <tr>
             <th>Search: <input ng-model="query" /></th>
             <th></th>
             <th></th>
-            <th></th>
+            <td></td> 
         </tr>
 			<tr>
-             
                 <th st-sort="lastName">Last Name</th>
 				<th st-sort="firstName">First Name</th>
-				<th st-sort="username">Username</th> 
-                <th st-sort="email">email</th>
+				<th st-sort="username">Username</th>  
+                <th st-sort="tags">Tags</th>            
 			</tr>
-           
 			</thead>
 			<tbody>
 			<tr dir-paginate="user in vm.allUsers|itemsPerPage:5 | filter:query">
                 <td>{{user.lastName}}</td>
 				<td>{{user.firstName}}</td>				
-				<td>{{user.username}}</td>
-                <td><a ng-href="mailto:{{user.email}}">email</a></td>
-		
+				<td>{{user.username}}</td> 
+                <td><span ng-repeat="tag in user.tags| filter:query">{{tag.text}} </td>            
 			</tr>
 			</tbody>
 		</table>

@@ -4,17 +4,15 @@
         .module('app')
         .controller('AccountController', AccountController);
 
-    AccountController.$inject = ['UserService', '$rootScope','$http','$window','$scope'];
+    AccountController.$inject = ['UserService', '$rootScope','$http','$window','$scope','$route'];
 
-    function AccountController(UserService, $rootScope,$http,$window,$scope) {
+    function AccountController(UserService, $rootScope,$http,$window,$scope,$route) {
         var vm = this;
       
-        vm.user = null;
+        vm.user;
         vm.images = [];
-        vm.lists = [];
-   
-        $scope.stringify = JSON.stringify;
-        
+        vm.showInfoChangeTab = false;
+
         initController();
 
         function initController() {
@@ -25,34 +23,54 @@
             UserService.GetByUsername($rootScope.globals.currentUser.username)
                 .then(function (user) {
                     vm.user = user;
-                });
-
+                    user.tags = [];
+             });
         }
-        
-        
-  vm.addList = function(){   
-    vm.lists.push(vm.list = {
-      values: [],
-      addValue: function(valueTyped) {
-        vm.values.push(valueTyped);
-        console.log(vm.values);
-      }
-    });
-  }
+          
+          // add data to user 
+         UserService.GetByUsername($rootScope.globals.currentUser.username).then(function (data) {
+               vm.user = {
+                      userData: data
+                   }
+             });
+                   
+                   //disply/hide change info table
+                  vm.changeInfo = function () {
+                     vm.showInfoChangeTab = true;
+                 };
+                 
+                 vm.closeTab = function(){
+                     vm.showInfoChangeTab = false;
+                 }
+                 
+                  // Confirm  change  
+                 vm.confirmAdditionalInfoEdit = function (user) {
+                     
+                      var userToUpload = user.userData;
+                    
+                     UserService.Update(userToUpload).then(function (data) {
+                        //changed data
+                        $rootScope.globals.currentUser = data.education;
+                        $rootScope.globals.currentUser = data.workplace;
+                        $route.reload();               // reload route
+                     })
+                 
+                 };
+                 
+              // Confirm  change  
+                 vm.saveTags = function (user) {
+                     
+                     var userTags = user.userData;
+                    
+                     UserService.Update(userTags).then(function (data) {
+                        //changed data
+                        $rootScope.globals.currentUser = data.tag;
+                        $route.reload();               // reload route
+                     })
+                 
+                 };
   
-  vm.addValue = function(list, value){
-    list.values.push(value);
-  }
   
-  vm.saveLists = function() {
-    localStorage["lists"] = JSON.stringify(vm.lists);
-  }
-  
-  vm.loadLists = function() {
-    vm.lists = JSON.parse(localStorage['lists']);
-  }
-        
-
   function handleFileSelect(evt) {
 
     var files = evt.target.files; // FileList object

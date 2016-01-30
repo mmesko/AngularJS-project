@@ -168,7 +168,6 @@ tagsInput.directive('tagsInput', ["$timeout", "$document", "$window", "tagsInput
         };
 
         self.clearSelection();
-
         return self;
     }
 

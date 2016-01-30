@@ -104,10 +104,6 @@
             return deferred.promise;
         }
         
-    
-
-        // private functions
-
         function getUsers() {
             if(!localStorage.users){
                 localStorage.users = JSON.stringify([]);
