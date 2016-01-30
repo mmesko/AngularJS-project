@@ -12,6 +12,7 @@
         vm.user;
         vm.images = [];
         vm.showInfoChangeTab = false;
+        vm.showBasicInfoChangeTab = false;
 
         initController();
 
@@ -33,14 +34,23 @@
                       userData: data
                    }
              });
-                   
+                   vm.changeBasicInfo = function(){
+                     vm.showInfoChangeTab = false;
+                     vm.showBasicInfoChangeTab = true; 
+                   }
                    //disply/hide change info table
                   vm.changeInfo = function () {
                      vm.showInfoChangeTab = true;
+                     vm.showBasicInfoChangeTab = false;
                  };
                  
                  vm.closeTab = function(){
                      vm.showInfoChangeTab = false;
+                     
+                 }
+                 
+                   vm.closeBasicTab = function(){
+                     vm.showBasicInfoChangeTab = false;
                  }
                  
                   // Confirm  change  
@@ -57,7 +67,23 @@
                  
                  };
                  
-              // Confirm  change  
+                    // Confirm  change  
+                 vm.confirmBasicInfoEdit = function (user) {
+                     
+                      var userToUpload = user.userData;
+                    
+                     UserService.Update(userToUpload).then(function (data) {
+                        //changed data
+                        $rootScope.globals.currentUser = data.firstName;
+                        $rootScope.globals.currentUser = data.lastName;
+                        $rootScope.globals.currentUser = data.username;
+                        
+                        $route.reload();               // reload route
+                     })
+                 
+                 }; 
+                 
+                 
                  vm.saveTags = function (user) {
                      
                      var userTags = user.userData;
