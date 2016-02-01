@@ -1,4 +1,4 @@
- <div class="container" ng-controller="AccountController">   
+<div class="container" ng-controller="AccountController"> 
  <!-- navbar-->    
   <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -46,11 +46,26 @@
       </form>
     
     <!-- User profile picture -->
-         <output id="list" style="width: 50px;"></output>
-         <br/><br/>
-        <div class="container">
-            <div><input type="file" id="files" name="files[]" multiple/></div>
-        </div>
+ 
+  <div>
+    <div class="thumbnail" ng-hide="$flow.files.length">
+      <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image" />
+    </div>
+    <div class="thumbnail" ng-show="$flow.files.length">
+      <img flow-img="$flow.files[0]"/>
+    </div>
+    <br/><br/><br/>
+    <div>
+      <button class="btn btn-sm btn-success" ng-click="vm.saveImg(vm.user)">Save</button>
+      <a href="C:/Users/mmesko00/Desktop" class="btn btn-sm btn-primary" ng-hide="$flow.files.length" flow-btn flow-attrs="{accept:'image/*'}">Select image</a>
+      <a href="C:/Users/mmesko00/Desktop" class="btn btn-sm btn-primary" ng-show="$flow.files.length" flow-btn flow-attrs="{accept:'image/*'}">Change</a>
+      <a href="#/profile" class="btn btn-danger" ng-show="$flow.files.length"
+         ng-click="$flow.cancel()">
+        Remove
+      </a>
+    </div>
+
+   <br/>
    <br/>
 
     <!-- User table -->
@@ -113,9 +128,7 @@
             </div>
         </form>
     </div>
-    
-    
-      
+ 
    <!-- Change basic info-->
     <div class="col-sm-5 col-sm-offset-1" ng-show="vm.showBasicInfoChangeTab">
         <h5 class="h5"><b>CHANGE BASIC INFO</b></h5>
@@ -142,7 +155,7 @@
             </div>
         </form>
     </div>
-  </div> 
+</div>
  
 
     
